@@ -25,8 +25,8 @@ class LaporanController extends Controller
     public function saveLapMasuk(Request $r)
     {
         $pengirim = $r->pengirim;
-        $suratMasuk = SuratMasuk::whereBetween('tgl_surat', [$r->tgl1,$r->tgl2])->where('pengirim', $pengirim)->get();
-        $suratDisposisi = DB::table('surat_disposisis as a')->join('surat_masuk as b', 'a.id_sm', 'b.id')->join('jenis_surats as c', 'a.id_js', 'c.id')->whereBetween('a.tgl_disposisi', [$r->tgl1, $r->tgl2])->where('b.pengirim', $pengirim)->orderBy('a.id', 'DESC')->get();
+        $suratMasuk = SuratMasuk::whereBetween('tgl_surat', [$r->tgl1,$r->tgl2])->where('pengirim', $pengirim)->orderBy('no_surat', 'ASC')->get();
+        $suratDisposisi = DB::table('surat_disposisis as a')->join('surat_masuk as b', 'a.id_sm', 'b.id')->join('jenis_surats as c', 'a.id_js', 'c.id')->whereBetween('a.tgl_disposisi', [$r->tgl1, $r->tgl2])->where('b.pengirim', $pengirim)->orderBy('a.no_surat', 'ASC')->get();
         $data = [
             'query' => $r->jenis == 1 ? $suratMasuk : $suratDisposisi,
             'jenis' => $r->jenis,
@@ -52,7 +52,7 @@ class LaporanController extends Controller
     public function saveLapKeluar(Request $r)
     {
         $data = [
-            'query' => SuratKeluar::whereBetween('tgl_surat', [$r->tgl1, $r->tgl2])->where('ditujukan', $r->ditujukan)->get(),
+            'query' => SuratKeluar::whereBetween('tgl_surat', [$r->tgl1, $r->tgl2])->where('ditujukan', $r->ditujukan)->orderBy('no_surat', 'ASC')->get(),
             'tgl1' => $r->tgl1,
             'tgl2' => $r->tgl2,
             'filter' => 'Ditujukan',

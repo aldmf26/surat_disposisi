@@ -30,7 +30,7 @@ class SuratKeluarController extends Controller
             $data = [
                 'no_surat' => $r->no_surat,
                 'tgl_surat' => $r->tgl_surat,
-                'pengirim' => $r->pengirim,
+                'pengirim' => '1',
                 'perihal' => $r->perihal,
                 'ditujukan' => $r->ditujukan,
                 'divisi_id' => $r->divisi_id,
@@ -48,7 +48,7 @@ class SuratKeluarController extends Controller
     {
         SuratKeluar::find($r->id_surat_keluar)->update([
             'tgl_surat' => $r->tgl_surat,
-            'pengirim' => $r->pengirim,
+            'pengirim' => '1',
             'perihal' => $r->perihal,
             'ditujukan' => $r->ditujukan,
             'divisi_id' => $r->divisi_id,

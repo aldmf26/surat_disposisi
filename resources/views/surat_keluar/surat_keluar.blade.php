@@ -18,7 +18,6 @@
                                     <th>No</th>
                                     <th>No Surat</th>
                                     <th>Tgl</th>
-                                    <th>Pengirim</th>
                                     <th>Divisi</th>
                                     <th>Di Tujukan</th>
                                     <th>Perihal</th>
@@ -32,7 +31,6 @@
                                         <td>{{ $no + 1 }}</td>
                                         <td>{{ $d->no_surat }}</td>
                                         <td>{{ date('d/m/Y', strtotime($d->tgl_surat)) }}</td>
-                                        <td>{{ $d->pengirim }}</td>
                                         <td>{{ $d->divisi->kd_divisi }}</td>
                                         <td>{{ $d->ditujukan }}</td>
                                         <td>{{ $d->perihal }}</td>
@@ -85,12 +83,7 @@
                                     <input required type="date" name="tgl_surat" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <label for="basicInput">Pengirim</label>
-                                    <input required name="pengirim" type="text" class="form-control"> 
-                                </div>
-                            </div>
+
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="basicInput">Perihal</label>
@@ -168,12 +161,7 @@
                                         <input value="{{ $d->tgl_surat }}" required type="date" name="tgl_surat" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="basicInput">Pengirim</label>
-                                        <input value="{{ $d->pengirim }}" required name="pengirim" type="text" class="form-control"> 
-                                    </div>
-                                </div>
+
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="basicInput">Perihal</label>

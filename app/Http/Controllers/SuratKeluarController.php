@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Divisi;
 use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class SuratKeluarController extends Controller
         $lastNoSurat = SuratKeluar::latest()->first();
         $data = [
             'title' => 'Surat Keluar',
-            'suratKeluar' => SuratKeluar::all(),
+            'suratKeluar' => SuratKeluar::join('divisis as b', 'a.divisi_id', 'b.id')->get(),
+            'divisi' => Divisi::all(),
             'noSurat' => !empty($lastNoSurat) ? $lastNoSurat->no_surat+1 : 1001,
         ];
         return view('surat_keluar.surat_keluar', $data);
@@ -31,6 +33,7 @@ class SuratKeluarController extends Controller
                 'pengirim' => $r->pengirim,
                 'perihal' => $r->perihal,
                 'ditujukan' => $r->ditujukan,
+                'divisi_id' => $r->divisi_id,
                 'berkas' => $file->getClientOriginalName(),
             ];
             SuratKeluar::create($data);
@@ -48,6 +51,7 @@ class SuratKeluarController extends Controller
             'pengirim' => $r->pengirim,
             'perihal' => $r->perihal,
             'ditujukan' => $r->ditujukan,
+            'divisi_id' => $r->divisi_id,
         ]);
         return redirect()->route('surat_keluar')->with('sukses', 'Berhasil edit surat keluar');
     }

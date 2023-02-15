@@ -25,7 +25,17 @@ class LaporanController extends Controller
     public function saveLapMasuk(Request $r)
     {
         $pengirim = $r->pengirim;
-        $suratMasuk = SuratMasuk::whereBetween('tgl_surat', [$r->tgl1,$r->tgl2])->where('pengirim', $pengirim)->orderBy('no_surat', 'ASC')->get();
+        $bulan = $r->bulan;
+        $tahun = $r->tahun;
+        if(!empty($pengirim)) {
+            $suratMasuk = SuratMasuk::where('pengirim', $pengirim)->orderBy('no_surat', 'ASC')->get();
+        }
+        if(!empty($bulan)) {
+            $suratMasuk = SuratMasuk::whereMonth('tgl_surat', date($bulan))->orderBy('no_surat', 'ASC')->get();
+        }
+        if(!empty($tahun)) {
+            $suratMasuk = SuratMasuk::whereYear('tgl_surat', date($tahun))->orderBy('no_surat', 'ASC')->get();
+        }
         $suratDisposisi = DB::table('surat_disposisis as a')->join('surat_masuk as b', 'a.id_sm', 'b.id')->join('jenis_surats as c', 'a.id_js', 'c.id')->whereBetween('a.tgl_disposisi', [$r->tgl1, $r->tgl2])->where('b.pengirim', $pengirim)->orderBy('a.no_surat', 'ASC')->get();
         $data = [
             'query' => $r->jenis == 1 ? $suratMasuk : $suratDisposisi,
@@ -73,7 +83,7 @@ class LaporanController extends Controller
     public function saveLapJenisSurat(Request $r)
     {
         $data = [
-            'query' => JenisSurat::where('kd_js', $r->kode)->get(),
+            'query' => JenisSurat::whereBetween('kd_js', [$r->kode1, $r->kode2])->get(),
             'title' => 'Laporan Jenis Surat'
         ];
         return view('laporan.jenis_surat.print',$data);

@@ -14,8 +14,19 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="form-group">
-                        <label for="">Kode</label>
-                        <select required name="kode" id="" class="form-control">
+                        <label for="">Dari</label>
+                        <select required name="kode1" id="" class="form-control">
+                            <option value="">- Pilih Kode -</option>
+                            @foreach ($datas as $p)
+                                <option value="{{ $p->kd_js }}">{{ $p->kd_js }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="">Sampai</label>
+                        <select required name="kode2" id="" class="form-control">
                             <option value="">- Pilih Kode -</option>
                             @foreach ($datas as $p)
                                 <option value="{{ $p->kd_js }}">{{ $p->kd_js }}</option>

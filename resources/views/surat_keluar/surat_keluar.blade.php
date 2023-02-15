@@ -19,6 +19,7 @@
                                     <th>No Surat</th>
                                     <th>Tgl</th>
                                     <th>Pengirim</th>
+                                    <th>Divisi</th>
                                     <th>Di Tujukan</th>
                                     <th>Perihal</th>
                                     <th>Berkas</th>
@@ -32,6 +33,7 @@
                                         <td>{{ $d->no_surat }}</td>
                                         <td>{{ date('d/m/Y', strtotime($d->tgl_surat)) }}</td>
                                         <td>{{ $d->pengirim }}</td>
+                                        <td>{{ $d->kd_divisi }}</td>
                                         <td>{{ $d->ditujukan }}</td>
                                         <td>{{ $d->perihal }}</td>
              
@@ -99,6 +101,17 @@
                                 <div class="form-group">
                                     <label for="">Ditujukan</label>
                                     <input type="text" class="form-control" name="ditujukan">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="">Divisi</label>
+                                    <select name="divisi_id" id="" class="form-control">
+                                        <option value="">- Pilih Divisi -</option>
+                                        @foreach ($divisi as $d)
+                                            <option value="{{ $d->id }}">{{ $d->kd_divisi }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -171,6 +184,17 @@
                                     <div class="form-group">
                                         <label for="">Ditujukan</label>
                                         <input value="{{ $d->ditujukan }}" type="text" class="form-control" name="ditujukan">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="">Divisi</label>
+                                        <select name="divisi_id" id="" class="form-control">
+                                            <option value="">- Pilih Divisi -</option>
+                                            @foreach ($divisi as $s)
+                                                <option {{$d->id == $s->id ? 'selected' : ''}} value="{{ $s->id }}">{{ $s->kd_divisi }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

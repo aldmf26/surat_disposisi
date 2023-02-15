@@ -33,7 +33,7 @@
                                         <td>{{ $d->no_surat }}</td>
                                         <td>{{ date('d/m/Y', strtotime($d->tgl_surat)) }}</td>
                                         <td>{{ $d->pengirim }}</td>
-                                        <td>{{ $d->kd_divisi }}</td>
+                                        <td>{{ $d->divisi->kd_divisi }}</td>
                                         <td>{{ $d->ditujukan }}</td>
                                         <td>{{ $d->perihal }}</td>
              

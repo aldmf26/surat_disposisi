@@ -13,7 +13,7 @@ class SuratKeluarController extends Controller
         $lastNoSurat = SuratKeluar::latest()->first();
         $data = [
             'title' => 'Surat Keluar',
-            'suratKeluar' => SuratKeluar::join('divisis as b', 'a.divisi_id', 'b.id')->get(),
+            'suratKeluar' => SuratKeluar::with('divisi')->get(),
             'divisi' => Divisi::all(),
             'noSurat' => !empty($lastNoSurat) ? $lastNoSurat->no_surat+1 : 1001,
         ];

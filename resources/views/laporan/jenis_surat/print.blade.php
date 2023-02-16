@@ -1,6 +1,18 @@
 @extends('laporan.theme.print')
 @section('content')
     <div class="container">
+        <table class="mb-3" cellpadding="3">
+            <tr>
+                <td>Cetak</td>
+                <td>:</td>
+                <td>{{ ucwords(Auth::user()->level) }} ({{ Auth::user()->name }})</td>
+            </tr>
+            <tr>
+                <td>Filter</td>
+                <td>:</td>
+                <td>{{ ucwords($filter) }}</td>
+            </tr>
+        </table>
         <table class="table">
             <thead>
                 <tr>

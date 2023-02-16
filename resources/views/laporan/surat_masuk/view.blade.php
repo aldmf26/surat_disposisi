@@ -89,30 +89,7 @@
                         </div>
                     </template>
                     <input type="hidden" name="jenis" value="{{ $jenis }}">
-                    {{-- <div class="col-lg-3">
-                    <input type="hidden" name="jenis" value="{{ $jenis }}">
-                    <div class="form-group">
-                        <label for="">Dari</label>
-                        <input type="date" class="form-control" name="tgl1">
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <label for="">Sampai</label>
-                        <input type="date" class="form-control" name="tgl2">
-                    </div>
-                </div> --}}
-                    {{-- <div class="col-lg-3">
-                    <div class="form-group">
-                        <label for="">Pengirim</label>
-                        <select required name="pengirim" id="" class="form-control">
-                            <option value="">- Pilih Pengirim -</option>
-                            @foreach ($pengirim as $p)
-                                <option value="{{ $jenis == 1 ? $p->pengirim : $p->suratMasuk->pengirim }}">{{ $jenis == 1 ? $p->pengirim : $p->suratMasuk->pengirim }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div> --}}
+                    <input type="hidden" name="pilih" x-model="pilih">
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label for="">Aksi</label><br>

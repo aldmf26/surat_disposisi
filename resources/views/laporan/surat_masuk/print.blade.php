@@ -55,7 +55,11 @@
                     <td>{{ $d->perihal }}</td>
                     <td>{{ $d->sifat_surat }}</td>
                     <td>{{ $d->status_disposisi }}</td>
-                    <td>{{ $d->berkas }}</td>
+                    <td>
+                        <a href="{{ asset("upload/$d->berkas") }}">
+                        {{ $d->berkas }}
+                        </a>
+                    </td>
                 </tr>
             @else
                 <tr>
@@ -68,7 +72,11 @@
                     <td>{{ $d->perihal }}</td>
                     <td>{{ $d->jenis_surat }}</td>
                     <td>{{ $d->status_disposisi }}</td>
-                    <td>{{ $d->berkas }}</td>
+                    <td>
+                        <a href="{{ asset("upload/$d->berkas") }}">
+                        {{ $d->berkas }}
+                        </a>
+                    </td>
                     <td>{{ $d->isi_disposisi }}</td>
 
                 </tr>

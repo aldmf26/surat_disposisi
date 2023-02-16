@@ -11,37 +11,91 @@
         </div>
         <div class="page-content">
             <form action="{{ route('saveLapKeluar') }}" method="get">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <label for="">Dari</label>
-                        <input type="date" class="form-control" name="tgl1">
+                <div class="row" x-data="{
+                    pilih: false
+                }">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="">Pilih Jenis</label>
+                            <select name="" id="" x-model="pilih" class="form-control">
+                                <option value="false">- Pilih -</option>
+                                <option value="divisi">Divisi</option>
+                                <option value="bulan">Bulan</option>
+                                <option value="tahun">Tahun</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <template x-if="pilih === 'bulan'">
+                        <div class="col-lg-3">
+                            @php
+                                $bulan = [
+                                    1 => 'Januari',
+                                    2 => 'Februari',
+                                    3 => 'Maret',
+                                    4 => 'April',
+                                    5 => 'Mei',
+                                    6 => 'Juni',
+                                    7 => 'Juli',
+                                    8 => 'Agustus',
+                                    9 => 'September',
+                                    10 => 'Oktober',
+                                    11 => 'November',
+                                    12 => 'Desember',
+                                ];
+                                
+                                $tahun = [
+                                    '1' => '2021',
+                                    '2' => '2022',
+                                    '3' => '2023',
+                                ];
+                            @endphp
+                            <div class="form-group">
+                                <label for="">Bulan</label>
+                                <select required name="bulan" id="" class="form-control">
+                                    <option value="">- Pilih Bulan -</option>
+                                    @foreach ($bulan as $i => $b)
+                                        <option value="{{ $i }}">{{ $b }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="pilih === 'tahun'">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="">Tahun</label>
+                                <select required name="tahun" id="" class="form-control">
+                                    <option value="">- Pilih Tahun -</option>
+                                    @for ($i = 1; $i <= 3; $i++)
+                                        <option value="{{ "202".$i }}">{{ "202".$i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="pilih === 'divisi'" >
+                        <div class="col-lg-3" x-transition>
+                            <div class="form-group">
+                                <label for="">Divisi</label>
+                                <select required name="divisi" id="" class="form-control">
+                                    <option value="">- Pilih Divisi -</option>
+                                    @foreach ($divisi as $p)
+                                        <option value="{{ $p->kd_divisi }}">
+                                            {{ $p->kd_divisi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </template>
+                    <input type="hidden" name="pilih" x-model="pilih">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="">Aksi</label><br>
+                            <button class="btn btn-primary" type="submit">Cetak</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <label for="">Sampai</label>
-                        <input type="date" class="form-control" name="tgl2">
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <label for="">Ditujukan</label>
-                        <select required name="ditujukan" id="" class="form-control">
-                            <option value="">- Pilih Ditujukan -</option>
-                            @foreach ($datas as $p)
-                                <option value="{{ $p->ditujukan }}">{{ $p->ditujukan }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="form-group">
-                        <label for="">Aksi</label><br>
-                        <button class="btn btn-primary" type="submit">Cetak</button>
-                    </div>
-                </div>
-            </div>
         </form>
         </div>
         

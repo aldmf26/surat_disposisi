@@ -249,7 +249,7 @@
                                         <tr>
                                             <td width="40%">Berkas</td>
                                             <td width="5%">:</td>
-                                            <td><a href="{{ asset("upload/$d->suratMasuk->berkas") }}">{{ $d->suratMasuk->berkas }}</a></td>
+                                            <td><a href="/upload/{{ $d->suratMasuk->berkas }}">{{ $d->suratMasuk->berkas }}</a></td>
                                         </tr>
                                     </table>
     

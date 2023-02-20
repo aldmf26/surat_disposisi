@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\DB;
 
 class LaporanController extends Controller
 {
-    public function suratMasuk($jenis)
+    public function suratMasuk($jenis, Request $r)
     {
+
         $data = [
             'title' => $jenis == 1 ? 'Laporan Surat Masuk' : 'Laporan Surat Disposisi',
             'pengirim' => $jenis == 1 ? SuratMasuk::all() : SuratDisposisi::with('suratMasuk', 'jenisSurat')->get(),
-            'jenis' => $jenis
+            'jenis' => $jenis,
         ];
         return view('laporan.surat_masuk.view',$data);
     }

@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     // disposisi
     Route::get('surat_disposisi', [SuratDisposisiController::class, 'index'])->name('surat_disposisi');
     Route::get('hapus_surat_disposisi/{id}/{id_sm}', [SuratDisposisiController::class, 'destroy'])->name('hapus_surat_disposisi');
+    Route::get('detail_disposisi/{id}/{id_sm}', [SuratDisposisiController::class, 'detail'])->name('detail_disposisi');
     Route::post('tambahSuratDisposisi', [SuratDisposisiController::class, 'tambahSuratDisposisi'])->name('tambahSuratDisposisi');
     Route::post('edit_surat_disposisi', [SuratDisposisiController::class, 'update'])->name('edit_surat_disposisi');
     

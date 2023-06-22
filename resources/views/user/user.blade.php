@@ -83,6 +83,7 @@
                                     <label for="">Level</label>
                                     <select name="level" class="form-control" id="">
                                         <option value="">- Pilih Level -</option>
+                                        <option value="pimpinan">pimpinan</option>
                                         <option value="admin">admin</option>
                                         <option value="user">user</option>
                                     </select>
@@ -153,6 +154,7 @@
                                         <label for="">Level</label>
                                         <select name="level" class="form-control" id="">
                                             <option value="">- Pilih Level -</option>
+                                            <option {{ $d->level == 'pimpinan' ? 'selected' : '' }} value="pimpinan">admin</option>
                                             <option {{ $d->level == 'admin' ? 'selected' : '' }} value="admin">admin</option>
                                             <option {{ $d->level == 'user' ? 'selected' : '' }} value="user">user</option>
                                         </select>

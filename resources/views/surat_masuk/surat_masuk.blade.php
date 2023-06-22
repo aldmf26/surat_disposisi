@@ -75,7 +75,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label for="basicInput">No Surat</label>
-                                    <input readonly name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
+                                    <input name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -164,7 +164,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label for="basicInput">No Surat</label>
-                                        <input readonly name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $d->no_surat }}">
+                                        <input name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $d->no_surat }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">

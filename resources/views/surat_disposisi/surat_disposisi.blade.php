@@ -31,7 +31,7 @@
                                         <td>{{ $no + 1 }}</td>
                                         <td>{{ $d->no_surat }}</td>
                                         <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#detail{{$d->id}}" >{{ date('d/m/Y', strtotime($d->tgl_disposisi))}}/{{ $d->no_agenda }}</a>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#detail{{$d->id}}" >{{ $d->no_agenda }}</a>
                                         </td>
                                         <td>{{ date('d/m/Y', strtotime($d->tgl_disposisi))}}</td>
                                         <td>{{ $d->suratMasuk->pengirim }}</td>
@@ -40,6 +40,8 @@
                                         <td align="center">
                                             <a data-bs-toggle="modal" data-bs-target="#modal-edit{{$d->id}}" class="btn icon btn-sm btn-primary"><i
                                                     class="bi bi-pencil"></i></a>
+                                            <a href="{{ route('detail_disposisi', [$d->id,$d->suratMasuk->id]) }}" class="btn icon btn-sm btn-primary"><i
+                                                    class="bi bi-eye"></i></a>
                                             <a onclick="return confirm('Yakin dihapus ?')"
                                                 href="{{ route('hapus_surat_disposisi', [$d->id,$d->suratMasuk->id]) }}"
                                                 class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
@@ -72,19 +74,25 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <div class="form-group">
                                     <label for="basicInput">No Surat</label>
-                                    <input readonly name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
+                                    <input name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
                                 </div>
                             </div>
                             <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label for="basicInput">No Agenda</label>
+                                    <input name="no_agenda" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="">Tanggal</label>
                                     <input required type="date" name="tgl_surat" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="basicInput">Pilih Surat</label>
                                     <select name="id_sm" id="" class="form-control">
@@ -95,7 +103,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="">Jenis Surat</label>
                                     <select name="id_js" id="" class="form-control">
@@ -152,7 +160,7 @@
                                     <div class="form-group">
                                         <input type="hidden" name="id_disposisi" value="{{ $d->id }}"> 
                                         <label for="basicInput">No Surat</label>
-                                        <input disabled name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
+                                        <input name="no_surat" type="text" class="form-control" id="basicInput" value="{{ $noSurat }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -265,7 +273,7 @@
                                         <tr>
                                             <td width="40%">No Agenda</td>
                                             <td width="5%">:</td>
-                                            <td>{{ tanggal($d->tgl_disposisi)}}/{{ $d->no_agenda }}</td>
+                                            <td>{{ $d->no_agenda }}</td>
                                         </tr>
                                         <tr>
                                             <td width="30%">Sifat Surat</td>

@@ -72,8 +72,8 @@
     {{-- modal tambah --}}
     <div class="modal fade text-left" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-            <form action="{{ route('tambah_surat_masuk') }}" enctype="multipart/form-data" method="post">
+        <div class="modal-dialog modal-md modal-dialog-scrollable" role="document">
+            <form action="{{ route('perkara.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -85,7 +85,36 @@
                         </button>
                     </div>
                     <div class="modal-body">
-
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">Tgl Daftar</label>
+                                    <input type="date" value="{{ date('Y-m-d') }}" name="tgl" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="">Jenis Perkara</label>
+                                <select name="id_jenis_perkara" class="form-control select2" id="">
+                                    <option value="">- Pilih Perkara -</option>
+                                    @foreach ($jenis_perkara as $j)
+                                        <option value="{{ $j->id_jenis_perkara }}">{{ $j->nm_jenis }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">No Perkara</label>
+                                    <input type="text" name="no_perkara" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">Nama Perkara</label>
+                                    <input type="text" name="nm_perkara" class="form-control">
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-bs-dismiss="modal">

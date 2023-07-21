@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class SuratMasukController extends Controller
 {
+    
     public function index()
     {
         $suratMasuk = SuratMasuk::all();

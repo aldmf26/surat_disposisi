@@ -265,7 +265,6 @@
                                 <div class="col-lg-6">
                                     <table class="table">
                                         
-                                        <tr>
                                             <td width="40%">Tanggal Diterima</td>
                                             <td width="5%">:</td>
                                             <td>{{ tanggal($d->tgl_disposisi) }}</td>

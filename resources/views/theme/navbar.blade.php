@@ -44,148 +44,175 @@
         <div class="sidebar-menu">
             {{-- navbar pimpinan --}}
             @if (auth()->user()->level == 'pimpinan')
-                
-            <ul class="menu">
-                <li class="sidebar-title">Menu</li>
+                <ul class="menu">
+                    <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item  {{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                @php
-                    $req = ['surat_masuk', 'surat_keluar', 'divisi', 'surat_disposisi', 'jenis_surat'];
-                @endphp
-                <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-envelope"></i>
-                        <span>Data Surat</span>
-                    </a>
+                    <li class="sidebar-item  {{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    @php
+                        $req = ['surat_masuk', 'surat_keluar', 'divisi', 'surat_disposisi', 'jenis_surat'];
+                    @endphp
+                    <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-envelope"></i>
+                            <span>Data Surat</span>
+                        </a>
 
-                    <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
+                        <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
 
-                        <li class="submenu-item {{ Request::is('surat_disposisi') ? 'active' : '' }}">
-                            <a href="{{ route('surat_disposisi') }}">Surat Disposisi</a>
-                        </li>
-                       
+                            <li class="submenu-item {{ Request::is('surat_disposisi') ? 'active' : '' }}">
+                                <a href="{{ route('surat_disposisi') }}">Surat Disposisi</a>
+                            </li>
 
-                    </ul>
-                </li>
 
-                @php
-                    $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
-                @endphp
+                        </ul>
+                    </li>
 
-                <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
-                    <a href="lap_masuk" class='sidebar-link'>
-                        <i class="bi bi-calendar-date"></i>
-                        <span>Laporan</span>
-                    </a>
+                    @php
+                        $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
+                    @endphp
 
-                    <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_masuk', 1) }}">Laporan Surat Masuk</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_masuk', 2) }}">Laporan Surat Disposisi</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_keluar') }}">Laporan Surat Keluar</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_jenis_surat') }}">Laporan jenis Surat</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_divisi') }}">Laporan Divisi</a>
-                        </li>
+                    <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
+                        <a href="lap_masuk" class='sidebar-link'>
+                            <i class="bi bi-calendar-date"></i>
+                            <span>Laporan</span>
+                        </a>
 
-                    </ul>
-                </li>
+                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_masuk', 1) }}">Laporan Surat Masuk</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_masuk', 2) }}">Laporan Surat Disposisi</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_keluar') }}">Laporan Surat Keluar</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_jenis_surat') }}">Laporan jenis Surat</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_divisi') }}">Laporan Divisi</a>
+                            </li>
 
-            </ul>
+                        </ul>
+                    </li>
+
+                </ul>
             @endif
             {{-- end navbar pmpinan --}}
 
             @if (auth()->user()->level != 'pimpinan')
-                
-            <ul class="menu">
-                <li class="sidebar-title">Menu</li>
+                <ul class="menu">
+                    <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item  {{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                @php
-                    $req = ['surat_masuk', 'surat_keluar', 'divisi', 'surat_disposisi', 'jenis_surat'];
-                @endphp
-                <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-envelope"></i>
-                        <span>Data Surat</span>
-                    </a>
+                    <li class="sidebar-item  {{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    @php
+                        $req = ['perkara.index', 'pihak.index', 'putusan', 'jenis_perkara.index', 'jenis_pihak.index'];
+                    @endphp
+                    <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-pass"></i>
+                            <span>Data Pengadilan</span>
+                        </a>
 
-                    <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
+                        <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('perkara.index') ? 'active' : '' }}">
+                                <a href="{{ route('perkara.index') }}">Perkara</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('pihak.index') ? 'active' : '' }}">
+                                <a href="{{ route('pihak.index') }}">Pihak</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('putusan') ? 'active' : '' }}">
+                                <a href="{{ route('putusan') }}">Putusan</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('jenis_perkara.index') ? 'active' : '' }}">
+                                <a href="{{ route('jenis_perkara.index') }}">Jenis Perkara</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('jenis_pihak.index') ? 'active' : '' }}">
+                                <a href="{{ route('jenis_pihak.index') }}">Jenis Pihak</a>
+                            </li>
 
-                        <li class="submenu-item {{ Request::is('surat_masuk') ? 'active' : '' }}">
-                            <a href="{{ route('surat_masuk') }}">Surat Masuk</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('surat_disposisi') ? 'active' : '' }}">
-                            <a href="{{ route('surat_disposisi') }}">Surat Disposisi</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('surat_keluar') ? 'active' : '' }}">
-                            <a href="{{ route('surat_keluar') }}">Surat Keluar</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('jenis_surat') ? 'active' : '' }}">
-                            <a href="{{ route('jenis_surat') }}">Jenis Surat</a>
-                        </li>
-                        <li class="submenu-item {{ Request::is('divisi') ? 'active' : '' }}">
-                            <a href="{{ route('divisi') }}">Divisi</a>
-                        </li>
+                        </ul>
+                    </li>
 
-                    </ul>
-                </li>
+                    @php
+                        $req = ['surat_masuk', 'surat_keluar', 'divisi', 'surat_disposisi', 'jenis_surat'];
+                    @endphp
+                    <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-envelope"></i>
+                            <span>Data Surat</span>
+                        </a>
 
-                @php
-                    $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
-                @endphp
+                        <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
 
-                <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
-                    <a href="lap_masuk" class='sidebar-link'>
-                        <i class="bi bi-calendar-date"></i>
-                        <span>Laporan</span>
-                    </a>
+                            <li class="submenu-item {{ Request::is('surat_masuk') ? 'active' : '' }}">
+                                <a href="{{ route('surat_masuk') }}">Surat Masuk</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('surat_disposisi') ? 'active' : '' }}">
+                                <a href="{{ route('surat_disposisi') }}">Surat Disposisi</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('surat_keluar') ? 'active' : '' }}">
+                                <a href="{{ route('surat_keluar') }}">Surat Keluar</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('jenis_surat') ? 'active' : '' }}">
+                                <a href="{{ route('jenis_surat') }}">Jenis Surat</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('divisi') ? 'active' : '' }}">
+                                <a href="{{ route('divisi') }}">Divisi</a>
+                            </li>
 
-                    <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_masuk', 1) }}">Laporan Surat Masuk</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_masuk', 2) }}">Laporan Surat Disposisi</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_keluar') }}">Laporan Surat Keluar</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_jenis_surat') }}">Laporan jenis Surat</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('lap_divisi') }}">Laporan Divisi</a>
-                        </li>
+                        </ul>
+                    </li>
 
-                    </ul>
-                </li>
+                    @php
+                        $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
+                    @endphp
 
-                <li class="sidebar-item  {{ Request::is('user') ? 'active' : '' }}">
-                    <a href="{{ route('user') }}" class='sidebar-link'>
-                        <i class="bi bi-file-person"></i>
-                        <span>Data User</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
+                        <a href="lap_masuk" class='sidebar-link'>
+                            <i class="bi bi-calendar-date"></i>
+                            <span>Laporan</span>
+                        </a>
 
-            </ul>
+                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_masuk', 1) }}">Laporan Surat Masuk</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_masuk', 2) }}">Laporan Surat Disposisi</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_keluar') }}">Laporan Surat Keluar</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_jenis_surat') }}">Laporan jenis Surat</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('lap_divisi') }}">Laporan Divisi</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-item  {{ Request::is('user') ? 'active' : '' }}">
+                        <a href="{{ route('user') }}" class='sidebar-link'>
+                            <i class="bi bi-file-person"></i>
+                            <span>Data User</span>
+                        </a>
+                    </li>
+
+                </ul>
             @endif
 
         </div>

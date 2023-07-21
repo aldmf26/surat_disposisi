@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\JenisPerkaraController;
+use App\Http\Controllers\JenisPihakontroller;
 use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PerkaraController;
+use App\Http\Controllers\PihakController;
+use App\Http\Controllers\PutusanController;
 use App\Http\Controllers\SuratDisposisiController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
@@ -35,6 +40,46 @@ Route::middleware(['auth'])->group(function () {
     Route::get('hapus_divisi/{id}', [DivisiController::class, 'destroy'])->name('hapus_divisi');
     Route::post('edit_divisi', [DivisiController::class, 'update'])->name('edit_divisi');
 
+    // pengadilan
+    
+    Route::get('putusan', [PutusanController::class, 'index'])->name('putusan');
+
+    Route::controller(PerkaraController::class)
+        ->prefix('perkara')
+        ->name('perkara.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(PihakController::class)
+        ->prefix('pihak')
+        ->name('pihak.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(JenisPerkaraController::class)
+        ->prefix('jenis_perkara')
+        ->name('jenis_perkara.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(JenisPihakontroller::class)
+        ->prefix('jenis_pihak')
+        ->name('jenis_pihak.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
 
     Route::get('surat_masuk', [SuratMasukController::class, 'index'])->name('surat_masuk');
     Route::post('tambah_surat_masuk', [SuratMasukController::class, 'store'])->name('tambah_surat_masuk');

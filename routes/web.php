@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BarangBuktiController;
+use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\HakimController;
 use App\Http\Controllers\JenisPerkaraController;
 use App\Http\Controllers\JenisPihakontroller;
 use App\Http\Controllers\JenisSuratController;
@@ -8,6 +11,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PerkaraController;
 use App\Http\Controllers\PihakController;
 use App\Http\Controllers\PutusanController;
+use App\Http\Controllers\SidangController;
 use App\Http\Controllers\SuratDisposisiController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
@@ -42,13 +46,58 @@ Route::middleware(['auth'])->group(function () {
 
     // pengadilan
     
-    Route::get('putusan', [PutusanController::class, 'index'])->name('putusan');
 
+    Route::controller(PutusanController::class)
+        ->prefix('putusan')
+        ->name('putusan.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(BiayaController::class)
+        ->prefix('biaya')
+        ->name('biaya.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(SidangController::class)
+        ->prefix('sidang')
+        ->name('sidang.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(HakimController::class)
+        ->prefix('hakim')
+        ->name('hakim.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
+    Route::controller(BarangBuktiController::class)
+        ->prefix('barang_bukti')
+        ->name('barang_bukti.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}', 'destroy')->name('destroy');
+        });
     Route::controller(PerkaraController::class)
         ->prefix('perkara')
         ->name('perkara.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/detail/{id_perkara}', 'detail')->name('detail');
             Route::post('/', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
             Route::get('/{id}', 'destroy')->name('destroy');

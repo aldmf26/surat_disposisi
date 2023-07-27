@@ -117,28 +117,41 @@
                         </a>
                     </li>
                     @php
-                        $req = ['perkara.index', 'pihak.index', 'putusan', 'jenis_perkara.index', 'jenis_pihak.index'];
+                        $reqPengadilan = ['perkara.index','biaya.index','perkara.detail','sidang.index', 'barang_bukti.index', 'hakim.index', 'pihak.index', 'putusan.index', 'jenis_perkara.index', 'jenis_pihak.index'];
+                        $routeName = Request::route()->getName();
                     @endphp
-                    <li class="sidebar-item  has-sub {{ Request::is($req) ? 'active' : '' }}">
+                    <li class="sidebar-item  has-sub {{ in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-pass"></i>
                             <span>Data Pengadilan</span>
                         </a>
 
-                        <ul class="submenu {{ Request::is($req) ? 'active' : '' }}">
-                            <li class="submenu-item {{ Request::is('perkara.index') ? 'active' : '' }}">
+                        <ul class="submenu {{ in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
+                            <li class="submenu-item {{ $routeName == 'perkara.index' || $routeName == 'perkara.detail' ? 'active' : '' }}">
                                 <a href="{{ route('perkara.index') }}">Perkara</a>
                             </li>
-                            <li class="submenu-item {{ Request::is('pihak.index') ? 'active' : '' }}">
+                            <li class="submenu-item {{ $routeName == 'barang_bukti.index' ? 'active' : '' }}">
+                                <a href="{{ route('barang_bukti.index') }}">Barang Bukti</a>
+                            </li>
+                            <li class="submenu-item {{ $routeName == 'pihak.index' ? 'active' : '' }}">
                                 <a href="{{ route('pihak.index') }}">Pihak</a>
                             </li>
-                            <li class="submenu-item {{ Request::is('putusan') ? 'active' : '' }}">
-                                <a href="{{ route('putusan') }}">Putusan</a>
+                            <li class="submenu-item {{ $routeName == 'putusan.index' ? 'active' : '' }}">
+                                <a href="{{ route('putusan.index') }}">Putusan</a>
                             </li>
-                            <li class="submenu-item {{ Request::is('jenis_perkara.index') ? 'active' : '' }}">
+                            <li class="submenu-item {{ $routeName == 'sidang.index' ? 'active' : '' }}">
+                                <a href="{{ route('sidang.index') }}">Sidang</a>
+                            </li>
+                            <li class="submenu-item {{ $routeName == 'biaya.index' ? 'active' : '' }}">
+                                <a href="{{ route('biaya.index') }}">Biaya</a>
+                            </li>
+                            <li class="submenu-item {{ $routeName == 'hakim.index' ? 'active' : '' }}">
+                                <a href="{{ route('hakim.index') }}">Hakim</a>
+                            </li>
+                            <li class="submenu-item {{ $routeName == 'jenis_perkara.index' ? 'active' : '' }}">
                                 <a href="{{ route('jenis_perkara.index') }}">Jenis Perkara</a>
                             </li>
-                            <li class="submenu-item {{ Request::is('jenis_pihak.index') ? 'active' : '' }}">
+                            <li class="submenu-item {{ $routeName == 'jenis_pihak.index' ? 'active' : '' }}">
                                 <a href="{{ route('jenis_pihak.index') }}">Jenis Pihak</a>
                             </li>
 

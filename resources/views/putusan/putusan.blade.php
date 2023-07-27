@@ -17,44 +17,26 @@
                                 <tr>
                                     <th>No</th>
                                     <th>No Perkara</th>
-                                    <th>Tgl Register</th>
-                                    <th>Perkara</th>
-                                    <th width="30%">Para Pihak</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Link</th>
+                                    <th>Nama Perkara</th>
+                                    <th>Tgl</th>
+                                    <th>Isi</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($perkara as $no => $d)
+                                @foreach ($putusan as $no => $d)
                                     <tr>
                                         <td>{{ $no + 1 }}</td>
                                         <td>{{ $d->no_perkara }}</td>
-                                        <td>{{ tanggal($d->tgl) }}</td>
                                         <td>{{ $d->nm_perkara }}</td>
-                                        @php
-                                            $penggugat = DB::table('tb_pihak')
-                                                ->where([['id_perkara', $d->id_perkara], ['id_jenis_pihak', 1]])
-                                                ->first();
-                                            $digugat = DB::table('tb_pihak')
-                                                ->where([['id_perkara', $d->id_perkara], ['id_jenis_pihak', 2]])
-                                                ->get();
-                                        @endphp
-                                        <td>
-                                            Penggugat : <br>
-                                            - {{ $penggugat->nama ?? '' }} <br>
-                                            <hr>
-                                            Digugat : <br>
-                                            @if (!empty($digugat))
-                                                @foreach ($digugat as $s)
-                                                    - {{ $s->nama }} <br>
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td>{{ $d->status }}</td>
+                                        <td>{{ tanggal($d->tgl) }}</td>
+                                        <td>{{ $d->isi }}</td>
                                         <td align="center">
-                                            <a href="{{ route('perkara.detail', $d->id_perkara) }}"
-                                                class="btn icon btn-sm btn-primary"><i class="bi bi-detail"></i> Detail</a>
-                                            
+                                            <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_putusan }}"
+                                                class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                                            <a onclick="return confirm('Yakin dihapus ?')"
+                                                href="{{ route('putusan.destroy', $d->id_putusan) }}"
+                                                class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -71,7 +53,7 @@
     <div class="modal fade text-left" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
         aria-hidden="true">
         <div class="modal-dialog modal-md modal-dialog-scrollable" role="document">
-            <form action="{{ route('perkara.store') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('putusan.store') }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -84,34 +66,30 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="">Tgl Daftar</label>
-                                    <input type="date" value="{{ date('Y-m-d') }}" name="tgl" class="form-control">
+                            <div class="mb-2 col-lg-12">
+                                <div class="fomr-group">
+                                    <label for="">Perkara</label>
+                                    <select name="id_perkara" class="form-control select2" id="">
+                                        <option value="">- Pilih Perkara -</option>
+                                        @foreach ($perkara as $p)
+                                            <option value="{{ $p->id_perkara }}">{{ $p->no_perkara }} ~
+                                                {{ ucwords($p->nm_perkara) }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <label for="">Jenis Perkara</label>
-                                <select name="id_jenis_perkara" class="form-control select2" id="">
-                                    <option value="">- Pilih Perkara -</option>
-                                    @foreach ($jenis_perkara as $j)
-                                        <option value="{{ $j->id_jenis_perkara }}">{{ $j->nm_jenis }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-lg-6">
+                            <div class="mb-2 col-lg-6">
                                 <div class="form-group">
-                                    <label for="">No Perkara</label>
-                                    <input type="text" name="no_perkara" class="form-control">
+                                    <label for="">Tanggal</label>
+                                    <input type="date" name="tgl" value="{{ date('Y-m-d') }}" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="mb-2 col-lg-6">
                                 <div class="form-group">
-                                    <label for="">Nama Perkara</label>
-                                    <input type="text" name="nm_perkara" class="form-control">
+                                    <label for="">Isi</label>
+                                    <input type="text" name="isi" class="form-control">
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -130,11 +108,11 @@
     </div>
 
     {{-- modal edit --}}
-    {{-- @foreach ($pihak as $d)
-        <div class="modal fade text-left" id="modal-edit{{$d->id_pihak}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+    @foreach ($putusan as $d)
+        <div class="modal fade text-left" id="modal-edit{{$d->id_putusan}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                <form action="{{ route('pihak.update') }}" method="post">
+                <form action="{{ route('putusan.update') }}" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -146,8 +124,33 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id"  value="{{ $d->id_pihak }}">
-                            
+                            <input type="hidden" name="id"  value="{{ $d->id_putusan }}">
+                            <div class="row">
+                                <div class="mb-2 col-lg-12">
+                                    <div class="fomr-group">
+                                        <label for="">Perkara</label>
+                                        <select name="id_perkara" class="form-control select2" id="">
+                                            <option value="">- Pilih Perkara -</option>
+                                            @foreach ($perkara as $p)
+                                                <option {{$d->id_perkara == $p->id_perkara ? 'selected' : ''}} value="{{ $p->id_perkara }}">{{ $p->no_perkara }} ~
+                                                    {{ ucwords($p->nm_perkara) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-2 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">Tanggal</label>
+                                        <input type="date" name="tgl" value="{{ $d->tgl }}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="mb-2 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">Isi</label>
+                                        <input type="text" name="isi" value="{{ $d->isi }}" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-bs-dismiss="modal">
@@ -163,5 +166,5 @@
                 </form>
             </div>
         </div>
-    @endforeach --}}
+    @endforeach
 @endsection

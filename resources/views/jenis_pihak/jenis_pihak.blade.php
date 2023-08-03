@@ -62,7 +62,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="">Nama Perkara</label>
+                                    <label for="">Nama Jenis Pihak</label>
                                     <input type="text" name="nm_jenis" class="form-control">
                                 </div>
                             </div>

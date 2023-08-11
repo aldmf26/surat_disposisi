@@ -74,15 +74,33 @@
 
                     @php
                         $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
+                        $routeName = Request::route()->getName();
+                        $reqPengadilan = [];
+                        $menu = [
+                            'lap_pengadilan.perkara' => 'perkara',
+                            'lap_pengadilan.pihak' => 'pihak',
+                            'lap_pengadilan.barang_bukti' => 'barang bukti',
+                            'lap_pengadilan.sidang' => 'sidang',
+                            'lap_pengadilan.biaya' => 'biaya',
+                            'lap_pengadilan.hakim' => 'hakim',
+                        ];
                     @endphp
 
-                    <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
+                    <li
+                        class="sidebar-item  has-sub {{ Request::is($reqL) || in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
                         <a href="lap_masuk" class='sidebar-link'>
                             <i class="bi bi-calendar-date"></i>
                             <span>Laporan</span>
                         </a>
 
-                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                        <ul
+                            class="submenu {{ Request::is($reqL) || in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
+                            @foreach ($menu as $r => $m)
+                                <li class="submenu-item {{ $routeName == $r ? 'active' : '' }}">
+                                    <a href="{{ route($r) }}">Laporan {{ ucwords($m) }}</a>
+                                </li>
+                            @endforeach
+
                             <li class="submenu-item">
                                 <a href="{{ route('lap_masuk', 1) }}">Laporan Surat Masuk</a>
                             </li>

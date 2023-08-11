@@ -21,6 +21,7 @@ use App\Models\JenisSurat;
 use App\Models\SuratDisposisi;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -207,6 +208,9 @@ Route::get('/dashboard', function () {
         'sk' => SuratKeluar::count(),
         'js' => JenisSurat::count(),
         'dv' => Divisi::count(),
+        'sd' => DB::table('tb_sidang')->count(),
+        'pr' => DB::table('tb_perkara')->count(),
+        'ph' => DB::table('tb_pihak')->count(),
     ];
     return view('dashboard.dashboard', $data);
 })->middleware(['auth'])->name('dashboard');

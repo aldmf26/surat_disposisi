@@ -65,4 +65,26 @@ class PerkaraController extends Controller
         ];
         return view('perkara.detail', $data);
     }
+
+    public function update(Request $r)
+    {
+        DB::table('tb_perkara')->where('id_perkara', $r->id)->update([
+            'tgl' => $r->tgl,
+            'no_perkara' => $r->no_perkara,
+            'nm_perkara' => $r->nm_perkara,
+            'id_jenis_perkara' => $r->id_jenis_perkara,
+            'status' => 'Persidangan',
+            'admin' => auth()->user()->name
+        ]);
+        return redirect()->route('perkara.index')->with('sukses', 'Data Berhasil diubah');
+    }
+
+    public function destroy($id)
+    {
+        $datas = ['barang_bukti', 'biaya', 'biaya', 'perkara', 'pihak', 'putusan', 'sidang'];
+        foreach($datas as $d) {
+            DB::table('tb_'.$d)->where('id_perkara', $id)->delete();
+        }
+        return redirect()->route('perkara.index')->with('sukses', 'Data Berhasil dihapus');
+    }
 }

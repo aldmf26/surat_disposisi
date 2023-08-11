@@ -54,7 +54,11 @@
                                         <td align="center">
                                             <a href="{{ route('perkara.detail', $d->id_perkara) }}"
                                                 class="btn icon btn-sm btn-primary"><i class="bi bi-detail"></i> Detail</a>
-                                            
+                                                <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_perkara }}"
+                                                    class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                                                <a onclick="return confirm('Yakin dihapus ?')"
+                                                    href="{{ route('perkara.destroy', $d->id_perkara) }}"
+                                                    class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -130,11 +134,11 @@
     </div>
 
     {{-- modal edit --}}
-    {{-- @foreach ($pihak as $d)
-        <div class="modal fade text-left" id="modal-edit{{$d->id_pihak}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+    @foreach ($perkara as $d)
+        <div class="modal fade text-left" id="modal-edit{{$d->id_perkara}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                <form action="{{ route('pihak.update') }}" method="post">
+                <form action="{{ route('perkara.update') }}" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -146,8 +150,37 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id"  value="{{ $d->id_pihak }}">
-                            
+                            <input type="hidden" name="id"  value="{{ $d->id_perkara }}">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">Tgl Daftar</label>
+                                        <input type="date" value="{{ $d->tgl }}" name="tgl" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="">Jenis Perkara</label>
+                                    <select name="id_jenis_perkara" class="form-control select2" id="">
+                                        <option value="">- Pilih Perkara -</option>
+                                        @foreach ($jenis_perkara as $j)
+                                            <option {{$j->id_jenis_perkara == $d->id_jenis_perkara ? 'selected' : ''}} value="{{ $j->id_jenis_perkara }}">{{ $j->nm_jenis }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">No Perkara</label>
+                                        <input type="text" value="{{ $d->no_perkara }}" name="no_perkara" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="">Nama Perkara</label>
+                                        <input type="text" value="{{ $d->nm_perkara }}" name="nm_perkara" class="form-control">
+                                    </div>
+                                </div>
+                                
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-bs-dismiss="modal">
@@ -163,5 +196,5 @@
                 </form>
             </div>
         </div>
-    @endforeach --}}
+    @endforeach
 @endsection

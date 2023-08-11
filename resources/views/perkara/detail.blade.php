@@ -28,11 +28,10 @@
                                     $digugat = DB::table('tb_pihak')
                                         ->where([['id_perkara', $id_perkara], ['id_jenis_pihak', 2]])
                                         ->get();
-                                    
                                     $status = DB::table('tb_sidang')
                                         ->where('id_perkara', $id_perkara)
                                         ->orderBy('id_sidang', 'DESC')
-                                        ->first()->ket;
+                                        ->first();
                                 @endphp
                                 <tr>
                                     <td>{{ $perkara->no_perkara }}</td>
@@ -42,7 +41,7 @@
                                             - {{ ucwords($s->nama) }} <br>
                                         @endforeach
                                     </td>
-                                    <td>{{ strtoupper($status) }}</td>
+                                    <td>{{ strtoupper($status->ket ?? '') }}</td>
                                 </tr>
                             </tbody>
                         </table>

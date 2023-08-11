@@ -128,4 +128,127 @@ class LaporanController extends Controller
         ];
         return view('laporan.divisi.print',$data);
     }
+
+    // pengadilan
+    public function perkara()
+    {
+        $data = [
+            'title' => "Laporan Perkara",
+            'datas' => DB::table('tb_perkara')->get()
+        ];
+        return view('laporan.perkara.view',$data);
+    }
+    public function save_perkara(Request $r)
+    {
+        $data = [
+            'perkara' => DB::table('tb_perkara')->whereBetween('tgl', [$r->tgl1, $r->tgl2])->get(),
+            'title' => "Laporan Perkara",
+        ];
+        return view('laporan.perkara.print',$data);
+    }
+
+    public function pihak()
+    {
+        $data = [
+            'title' => "Laporan Pihak",
+            'datas' => DB::table('tb_pihak')->get(),
+            'perkara' => DB::table('tb_perkara')->get()
+        ];
+        return view('laporan.pihak.view',$data);
+    }
+    public function save_pihak(Request $r)
+    {
+        $data = [
+            'pihak' => DB::table('tb_pihak as a')
+                        ->join('tb_jenis_pihak as b', 'a.id_jenis_pihak', 'b.id_jenis_pihak')
+                        ->join('tb_perkara as c', 'a.id_perkara', 'c.id_perkara')
+                        ->where('a.id_perkara', $r->id_perkara)
+                        ->orderBy('a.id_pihak', 'DESC')
+                        ->get(),
+            'title' => "Laporan Pihak",
+        ];
+        return view('laporan.pihak.print',$data);
+    }
+
+    public function barang_bukti()
+    {
+        $data = [
+            'title' => "Laporan Barang Bukti",
+            'datas' => DB::table('tb_barang_bukti')->get(),
+            'perkara' => DB::table('tb_perkara')->get()
+        ];
+        return view('laporan.barang_bukti.view',$data);
+    }
+    public function save_barang_bukti(Request $r)
+    {
+        $data = [
+            'datas' => DB::table('tb_barang_bukti as a')
+                ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
+                ->whereBetween('a.tgl_penerimaan', [$r->tgl1, $r->tgl2])
+                ->get(),
+            'title' => "Laporan Barang Bukti",
+        ];
+        return view('laporan.barang_bukti.print',$data);
+    }
+
+    public function sidang()
+    {
+        $data = [
+            'title' => "Laporan Sidang",
+            'datas' => DB::table('tb_sidang')->get(),
+            'perkara' => DB::table('tb_perkara')->get()
+        ];
+        return view('laporan.sidang.view',$data);
+    }
+    public function save_sidang(Request $r)
+    {
+        $data = [
+            'datas' => DB::table('tb_sidang as a')
+                ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
+                ->join('tb_hakim as c', 'a.id_hakim', 'c.id_hakim')
+                ->whereBetween('a.tgl_sidang', [$r->tgl1, $r->tgl2])
+                ->get(),
+            'title' => "Laporan Sidang",
+        ];
+        return view('laporan.sidang.print',$data);
+    }
+    public function hakim()
+    {
+        $data = [
+            'title' => "Laporan Hakim",
+            'datas' => DB::table('tb_hakim as a')->get(),
+        ];
+        return view('laporan.hakim.view',$data);
+    }
+    public function save_hakim(Request $r)
+    {
+        $data = [
+            'datas' => DB::table('tb_hakim as a')->get(),
+            'title' => "Laporan Hakim",
+        ];
+        return view('laporan.hakim.print',$data);
+    }
+    public function biaya()
+    {
+        $data = [
+            'title' => "Laporan Biaya",
+            'datas' => DB::table('tb_biaya as a')
+                ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
+                ->get(),
+            'perkara' => DB::table('tb_perkara')->get()
+
+        ];
+        return view('laporan.biaya.view',$data);
+    }
+    public function save_biaya(Request $r)
+    {
+        $data = [
+            'datas' => DB::table('tb_biaya as a')
+                ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
+                ->where('a.id_perkara', $r->id_perkara)
+                ->get(),
+            'title' => "Laporan Biaya",
+        ];
+        return view('laporan.biaya.print',$data);
+    }
 }

@@ -102,6 +102,32 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update', 'update')->name('update');
             Route::get('/{id}', 'destroy')->name('destroy');
         });
+
+    Route::controller(LaporanController::class)
+        ->prefix('lap_pengadilan')
+        ->name('lap_pengadilan.')
+        ->group(function () {
+            Route::get('/perkara', 'perkara')->name('perkara');
+            Route::get('/save_perkara', 'save_perkara')->name('save_perkara');
+
+            Route::get('/pihak', 'pihak')->name('pihak');
+            Route::get('/save_pihak', 'save_pihak')->name('save_pihak');
+
+            Route::get('/barang_bukti', 'barang_bukti')->name('barang_bukti');
+            Route::get('/save_barang_bukti', 'save_barang_bukti')->name('save_barang_bukti');
+
+            Route::get('/sidang', 'sidang')->name('sidang');
+            Route::get('/save_sidang', 'save_sidang')->name('save_sidang');
+
+            Route::get('/hakim', 'hakim')->name('hakim');
+            Route::get('/save_hakim', 'save_hakim')->name('save_hakim');
+
+            Route::get('/biaya', 'biaya')->name('biaya');
+            Route::get('/save_biaya', 'save_biaya')->name('save_biaya');
+
+
+        });
+
     Route::controller(PihakController::class)
         ->prefix('pihak')
         ->name('pihak.')

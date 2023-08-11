@@ -117,7 +117,7 @@
                         </a>
                     </li>
                     @php
-                        $reqPengadilan = ['perkara.index','biaya.index','perkara.detail','sidang.index', 'barang_bukti.index', 'hakim.index', 'pihak.index', 'putusan.index', 'jenis_perkara.index', 'jenis_pihak.index'];
+                        $reqPengadilan = ['perkara.index', 'biaya.index', 'perkara.detail', 'sidang.index', 'barang_bukti.index', 'hakim.index', 'pihak.index', 'putusan.index', 'jenis_perkara.index', 'jenis_pihak.index'];
                         $routeName = Request::route()->getName();
                     @endphp
                     <li class="sidebar-item  has-sub {{ in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
@@ -127,15 +127,17 @@
                         </a>
 
                         <ul class="submenu {{ in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
-                            <li class="submenu-item {{ $routeName == 'perkara.index' || $routeName == 'perkara.detail' ? 'active' : '' }}">
+                            <li
+                                class="submenu-item {{ $routeName == 'perkara.index' || $routeName == 'perkara.detail' ? 'active' : '' }}">
                                 <a href="{{ route('perkara.index') }}">Perkara</a>
-                            </li>
-                            <li class="submenu-item {{ $routeName == 'barang_bukti.index' ? 'active' : '' }}">
-                                <a href="{{ route('barang_bukti.index') }}">Barang Bukti</a>
                             </li>
                             <li class="submenu-item {{ $routeName == 'pihak.index' ? 'active' : '' }}">
                                 <a href="{{ route('pihak.index') }}">Pihak</a>
                             </li>
+                            <li class="submenu-item {{ $routeName == 'barang_bukti.index' ? 'active' : '' }}">
+                                <a href="{{ route('barang_bukti.index') }}">Barang Bukti</a>
+                            </li>
+
                             <li class="submenu-item {{ $routeName == 'putusan.index' ? 'active' : '' }}">
                                 <a href="{{ route('putusan.index') }}">Putusan</a>
                             </li>
@@ -190,15 +192,32 @@
 
                     @php
                         $reqL = ['lap_masuk/1', 'lap_masuk/2', 'lap_keluar'];
+                        $routeName = Request::route()->getName();
+                        $menu = [
+                            'lap_pengadilan.perkara' => 'perkara',
+                            'lap_pengadilan.pihak' => 'pihak',
+                            'lap_pengadilan.barang_bukti' => 'barang bukti',
+                            'lap_pengadilan.sidang' => 'sidang',
+                            'lap_pengadilan.biaya' => 'biaya',
+                            'lap_pengadilan.hakim' => 'hakim',
+                        ];
                     @endphp
 
-                    <li class="sidebar-item  has-sub {{ Request::is($reqL) ? 'active' : '' }}">
+                    <li
+                        class="sidebar-item  has-sub {{ Request::is($reqL) || in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
                         <a href="lap_masuk" class='sidebar-link'>
                             <i class="bi bi-calendar-date"></i>
                             <span>Laporan</span>
                         </a>
 
-                        <ul class="submenu {{ Request::is($reqL) ? 'active' : '' }}">
+                        <ul
+                            class="submenu {{ Request::is($reqL) || in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
+                            @foreach ($menu as $r => $m)
+                                <li class="submenu-item {{ $routeName == $r ? 'active' : '' }}">
+                                    <a href="{{ route($r) }}">Laporan {{ ucwords($m) }}</a>
+                                </li>
+                            @endforeach
+
                             <li class="submenu-item">
                                 <a href="{{ route('lap_masuk', 1) }}">Laporan Surat Masuk</a>
                             </li>

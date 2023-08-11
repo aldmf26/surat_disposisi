@@ -22,17 +22,22 @@ class BarangBuktiController extends Controller
     
     public function store(Request $r)
     {
-        DB::table('tb_barang_bukti')->insert([
-            'id_perkara' => $r->id_perkara,
-            'tgl_penerimaan' => $r->tgl,
-            'uraian_bukti' => $r->uraian_bukti,
-            'penyimpanan' => $r->penyimpanan,
-            'penyerahan' => $r->penyerahan,
-            'nm_penerima' => $r->nm_penerima,
-            'catatan' => $r->catatan,
-            'admin' => auth()->user()->name
-        ]);
-        return redirect()->route('barang_bukti.index')->with('sukses', 'Berhasil tambah barang_bukti');
+        $cek = DB::table('tb_barang_bukti')->where('id_perkara', $r->id_perkara)->count();
+        if($cek > 0) {
+        return redirect()->route('barang_bukti.index')->with('error', 'BARANG BUKTI SUDAH ADA, MOHON EDIT !!');
+        } else {
+            DB::table('tb_barang_bukti')->insert([
+                'id_perkara' => $r->id_perkara,
+                'tgl_penerimaan' => $r->tgl,
+                'uraian_bukti' => $r->uraian_bukti,
+                'penyimpanan' => $r->penyimpanan,
+                'penyerahan' => $r->penyerahan,
+                'nm_penerima' => $r->nm_penerima,
+                'catatan' => $r->catatan,
+                'admin' => auth()->user()->name
+            ]);
+            return redirect()->route('barang_bukti.index')->with('sukses', 'Berhasil tambah barang_bukti');
+        }
     }
 
     public function update(Request $r)

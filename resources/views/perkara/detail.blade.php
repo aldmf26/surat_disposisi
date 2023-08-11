@@ -17,6 +17,7 @@
                                     <th>Nomor Perkara</th>
                                     <th>Penuntut Umum</th>
                                     <th>Terdakwa</th>
+                                    <th>Saksi</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -28,6 +29,9 @@
                                     $digugat = DB::table('tb_pihak')
                                         ->where([['id_perkara', $id_perkara], ['id_jenis_pihak', 2]])
                                         ->get();
+                                    $saksi = DB::table('tb_pihak')
+                                        ->where([['id_perkara', $id_perkara], ['id_jenis_pihak', 4]])
+                                        ->get();
                                     $status = DB::table('tb_sidang')
                                         ->where('id_perkara', $id_perkara)
                                         ->orderBy('id_sidang', 'DESC')
@@ -38,6 +42,11 @@
                                     <td>{{ ucwords($penggugat->nama) }}</td>
                                     <td>
                                         @foreach ($digugat as $s)
+                                            - {{ ucwords($s->nama) }} <br>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($saksi as $s)
                                             - {{ ucwords($s->nama) }} <br>
                                         @endforeach
                                     </td>

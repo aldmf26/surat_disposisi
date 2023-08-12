@@ -126,18 +126,6 @@
                         <div class="modal-body">
                             <input type="hidden" name="id"  value="{{ $d->id_putusan }}">
                             <div class="row">
-                                <div class="mb-2 col-lg-12">
-                                    <div class="fomr-group">
-                                        <label for="">Perkara</label>
-                                        <select name="id_perkara" required class="form-control select2" id="">
-                                            <option value="">- Pilih Perkara -</option>
-                                            @foreach ($perkara as $p)
-                                                <option {{$d->id_perkara == $p->id_perkara ? 'selected' : ''}} value="{{ $p->id_perkara }}">{{ $p->no_perkara }} ~
-                                                    {{ ucwords($p->nm_perkara) }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="mb-2 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Tanggal</label>

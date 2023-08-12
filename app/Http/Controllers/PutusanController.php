@@ -42,7 +42,6 @@ class PutusanController extends Controller
     public function update(Request $r)
     {
         DB::table('tb_putusan')->where('id_putusan', $r->id)->update([
-            'id_perkara' => $r->id_perkara,
             'tgl' => $r->tgl,
             'isi' => $r->isi,
             'admin' => auth()->user()->name

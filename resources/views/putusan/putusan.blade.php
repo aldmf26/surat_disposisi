@@ -129,7 +129,7 @@
                                 <div class="mb-2 col-lg-12">
                                     <div class="fomr-group">
                                         <label for="">Perkara</label>
-                                        <select name="id_perkara" class="form-control select2" id="">
+                                        <select name="id_perkara" required class="form-control select2" id="">
                                             <option value="">- Pilih Perkara -</option>
                                             @foreach ($perkara as $p)
                                                 <option {{$d->id_perkara == $p->id_perkara ? 'selected' : ''}} value="{{ $p->id_perkara }}">{{ $p->no_perkara }} ~

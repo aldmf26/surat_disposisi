@@ -20,6 +20,7 @@
                                     <th>Nama Perkara</th>
                                     <th>Tgl</th>
                                     <th>Isi</th>
+                                    <th>Berkas</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -31,6 +32,7 @@
                                         <td>{{ $d->nm_perkara }}</td>
                                         <td>{{ tanggal($d->tgl) }}</td>
                                         <td>{{ $d->isi }}</td>
+                                        <td><a href="{{ asset("upload/$d->berkas") }}">{{ Str::limit($d->berkas,10, '...') }}</a></td>
                                         <td align="center">
                                             <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_putusan }}"
                                                 class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
@@ -88,6 +90,12 @@
                                 <div class="form-group">
                                     <label for="">Isi</label>
                                     <input type="text" name="isi" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="">File</label>
+                                    <input type="file" class="form-control" name="berkas">
                                 </div>
                             </div>
                         </div>

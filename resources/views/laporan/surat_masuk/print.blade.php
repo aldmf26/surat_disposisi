@@ -17,7 +17,7 @@
         <thead>
             @if ($jenis == 1)
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>No Surat</th>
                     <th>Tanggal</th>
                     <th>Pengirim</th>
@@ -29,7 +29,7 @@
                 </tr>
             @else
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>No Surat</th>
                     <th>No Agenda</th>
                     <th>Tanggal</th>

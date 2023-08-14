@@ -17,7 +17,7 @@ class PutusanController extends Controller
         $data = [
             'title' => 'Data Putusan',
             'putusan' => DB::table('tb_putusan as a')
-                ->select('a.id_putusan','a.berkas', 'a.id_perkara', 'b.no_perkara', 'b.nm_perkara', 'a.tgl', 'a.isi')
+                ->select('a.id_putusan', 'a.berkas', 'a.id_perkara', 'b.no_perkara', 'b.nm_perkara', 'a.tgl', 'a.isi')
                 ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
                 ->get(),
             'perkara' => DB::table('tb_perkara')->where('status', 'persidangan')->get()
@@ -52,9 +52,24 @@ class PutusanController extends Controller
 
     public function update(Request $r)
     {
+        if (!empty($r->file('berkas'))) {
+            $file = $r->file('berkas');
+            $fileDiterima = ['pdf', 'jpg', 'png', 'jpeg'];
+            $cek = in_array($file->getClientOriginalExtension(), $fileDiterima);
+            if ($cek) {
+                $oldFilePath = public_path('upload/' . $file->getClientOriginalName());
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+                $file->move('upload', $file->getClientOriginalName());
+            } else {
+                return redirect()->route('putusan.index')->with('error', 'GAGAL UPLOAD FILE');
+            }
+        }
         DB::table('tb_putusan')->where('id_putusan', $r->id)->update([
             'tgl' => $r->tgl,
             'isi' => $r->isi,
+            'berkas' => $file->getClientOriginalName(),
             'admin' => auth()->user()->name
         ]);
         return redirect()->route('putusan.index')->with('sukses', 'Berhasil ubah putusan');

@@ -16,7 +16,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Kode Surat</th>
                     <th>Jenis Surat</th>
                     <th>Uraian</th>

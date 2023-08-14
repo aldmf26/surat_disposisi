@@ -16,7 +16,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>No Surat</th>
                     <th>Tanggal</th>
                     <th>Pengirim</th>

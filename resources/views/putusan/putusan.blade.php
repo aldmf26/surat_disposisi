@@ -120,7 +120,7 @@
         <div class="modal fade text-left" id="modal-edit{{$d->id_putusan}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                <form action="{{ route('putusan.update') }}" method="post">
+                <form action="{{ route('putusan.update') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -134,18 +134,30 @@
                         <div class="modal-body">
                             <input type="hidden" name="id"  value="{{ $d->id_putusan }}">
                             <div class="row">
+                                <div class="col-lg-2">
+                                    <label for="">Berkas</label><br>
+                                    <a class="btn btn-sm btn-primary" href="{{ asset("upload/$d->berkas") }}">Liat Berkas</a>
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="form-group">
+                                        <label for="">File</label>
+                                        <input type="file" class="form-control" name="berkas">
+                                    </div>
+                                </div>
                                 <div class="mb-2 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Tanggal</label>
                                         <input type="date" name="tgl" value="{{ $d->tgl }}" class="form-control">
                                     </div>
                                 </div>
+                                
                                 <div class="mb-2 col-lg-6">
                                     <div class="form-group">
                                         <label for="">Isi</label>
                                         <input type="text" name="isi" value="{{ $d->isi }}" class="form-control">
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="modal-footer">

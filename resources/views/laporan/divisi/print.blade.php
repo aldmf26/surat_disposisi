@@ -4,7 +4,7 @@
         <table class="table" id="table1">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Kode Divisi</th>
                     <th>Nama Divisi</th>
                 </tr>

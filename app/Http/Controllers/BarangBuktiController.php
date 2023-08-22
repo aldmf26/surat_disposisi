@@ -43,7 +43,6 @@ class BarangBuktiController extends Controller
     public function update(Request $r)
     {
         DB::table('tb_barang_bukti')->where('id_barang_bukti', $r->id)->update([
-            'id_perkara' => $r->id_perkara,
             'tgl_penerimaan' => $r->tgl,
             'uraian_bukti' => $r->uraian_bukti,
             'penyimpanan' => $r->penyimpanan,

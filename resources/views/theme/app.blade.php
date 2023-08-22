@@ -8,7 +8,7 @@
     {{-- membuat navbar active tidak error --}}
     <meta name="turbolinks-cache-control" content="no-cache">
     {{-- <meta name="turbolinks-visit-control" content="reload"> --}}
-    <title>SIM Surat Disposisi</title>
+    <title>SIAD-PN</title>
 
     <link rel="stylesheet" turbolinks-track="true" href="{{ asset('theme') }}/assets/css/main/app.css">
     <link rel="stylesheet" href="{{ asset('theme') }}/assets/css/main/app-dark.css">

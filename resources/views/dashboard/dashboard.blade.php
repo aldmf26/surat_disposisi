@@ -7,7 +7,7 @@
             </a>
         </header>
         <div class="page-heading">
-            <h3 style="text-transform: capitalize">Sistem informasi pengelolaan surat menyurat dan disposisi</h3>
+            <h3 style="text-transform: capitalize">Sistem informasi Arsip Digital Pengadilan Negeri Kelas 1A</h3>
         </div>
         <div class="page-content">
             <div class="row">

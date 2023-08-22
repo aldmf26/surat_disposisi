@@ -183,7 +183,7 @@
                                 <div class="mb2 col-lg-12">
                                     <div class="form-group">
                                         <label for="">Catatan</label>
-                                        <input value="{{ $d->catatan }}" type="text" name="catatan" class="form-control">
+                                        <input value="{{ $d->catatan_bb }}" type="text" name="catatan" class="form-control">
                                     </div>
                                 </div>
                             </div>

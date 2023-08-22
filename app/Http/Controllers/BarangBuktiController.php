@@ -12,6 +12,7 @@ class BarangBuktiController extends Controller
         $data = [
             'title' => 'Data Barang Bukti',
             'datas' => DB::table('tb_barang_bukti as a')
+                ->select('a.catatan as catatan_bb', 'a.*', 'b.*')
                 ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
                 ->get(),
             'perkara' => DB::table('tb_perkara')->where('status', 'persidangan')->get()

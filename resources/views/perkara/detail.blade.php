@@ -160,7 +160,7 @@
                                     </tr>
                                     <tr>
                                         <td class="bg-info text-white">Catatan</td>
-                                        <td>{{ ucwords($barang_bukti->catatan) }}</td>
+                                        <td>{{ ucwords($barang_bukti->catatan_bb) }}</td>
                                     </tr>
                                 </table>
                             </div>

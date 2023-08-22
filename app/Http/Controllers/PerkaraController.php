@@ -44,6 +44,7 @@ class PerkaraController extends Controller
             ->get();
 
         $barang_bukti = DB::table('tb_barang_bukti as a')
+        ->select('a.catatan as catatan_bb', 'a.*', 'b.*')
             ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
             ->where('a.id_perkara', $id_perkara)->first();
 

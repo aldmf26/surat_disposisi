@@ -21,11 +21,23 @@ class BiayaController extends Controller
     
     public function store(Request $r)
     {
+        if (!empty($r->file('foto'))) {
+            $file = $r->file('foto');
+            $fileDiterima = ['jpg', 'png', 'jpeg'];
+            $cek = in_array($file->getClientOriginalExtension(), $fileDiterima);
+            if ($cek) {
+                $file->move('upload', $file->getClientOriginalName());
+            } else {
+                return redirect()->route('biaya.index')->with('error', 'GAGAL UPLOAD FILE');
+            }
+        }
+
         DB::table('tb_biaya')->insert([
             'id_perkara' => $r->id_perkara,
             'tgl_transaksi' => $r->tgl,
             'uraian' => $r->uraian,
             'nominal' => $r->nominal,
+            'foto' => $file->getClientOriginalName() ?? '',
             'admin' => auth()->user()->name
         ]);
         return redirect()->route('biaya.index')->with('sukses', 'Berhasil tambah biaya');
@@ -33,11 +45,22 @@ class BiayaController extends Controller
 
     public function update(Request $r)
     {
+        if (!empty($r->file('foto'))) {
+            $file = $r->file('foto');
+            $fileDiterima = ['jpg', 'png', 'jpeg'];
+            $cek = in_array($file->getClientOriginalExtension(), $fileDiterima);
+            if ($cek) {
+                $file->move('upload', $file->getClientOriginalName());
+            } else {
+                return redirect()->route('biaya.index')->with('error', 'GAGAL UPLOAD FILE');
+            }
+        }
         DB::table('tb_biaya')->where('id_biaya', $r->id)->update([
             'id_perkara' => $r->id_perkara,
             'tgl_transaksi' => $r->tgl,
             'uraian' => $r->uraian,
             'nominal' => $r->nominal,
+            'foto' => $file->getClientOriginalName() ?? '',
             'admin' => auth()->user()->name
         ]);
         return redirect()->route('biaya.index')->with('sukses', 'Berhasil ubah biaya');

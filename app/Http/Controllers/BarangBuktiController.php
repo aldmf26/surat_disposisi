@@ -20,13 +20,24 @@ class BarangBuktiController extends Controller
         return view('barang_bukti.barang_bukti', $data);
     }
 
-    
+
     public function store(Request $r)
     {
+
         $cek = DB::table('tb_barang_bukti')->where('id_perkara', $r->id_perkara)->count();
-        if($cek > 0) {
-        return redirect()->route('barang_bukti.index')->with('error', 'BARANG BUKTI SUDAH ADA, MOHON EDIT !!');
+        if ($cek > 0) {
+            return redirect()->route('barang_bukti.index')->with('error', 'BARANG BUKTI SUDAH ADA, MOHON EDIT !!');
         } else {
+            if (!empty($r->file('foto'))) {
+                $file = $r->file('foto');
+                $fileDiterima = ['jpg', 'png', 'jpeg'];
+                $cek = in_array($file->getClientOriginalExtension(), $fileDiterima);
+                if ($cek) {
+                    $file->move('upload', $file->getClientOriginalName());
+                } else {
+                    return redirect()->route('putusan.index')->with('error', 'GAGAL UPLOAD FILE');
+                }
+            }
             DB::table('tb_barang_bukti')->insert([
                 'id_perkara' => $r->id_perkara,
                 'tgl_penerimaan' => $r->tgl,
@@ -35,7 +46,8 @@ class BarangBuktiController extends Controller
                 'penyerahan' => $r->penyerahan,
                 'nm_penerima' => $r->nm_penerima,
                 'catatan' => $r->catatan,
-                'admin' => auth()->user()->name
+                'admin' => auth()->user()->name,
+                'foto' => $file->getClientOriginalName() ?? '',
             ]);
             return redirect()->route('barang_bukti.index')->with('sukses', 'Berhasil tambah barang_bukti');
         }
@@ -43,6 +55,16 @@ class BarangBuktiController extends Controller
 
     public function update(Request $r)
     {
+        if (!empty($r->file('foto'))) {
+            $file = $r->file('foto');
+            $fileDiterima = ['jpg', 'png', 'jpeg'];
+            $cek = in_array($file->getClientOriginalExtension(), $fileDiterima);
+            if ($cek) {
+                $file->move('upload', $file->getClientOriginalName());
+            } else {
+                return redirect()->route('barang_bukti.index')->with('error', 'GAGAL UPLOAD FILE');
+            }
+        }
         DB::table('tb_barang_bukti')->where('id_barang_bukti', $r->id)->update([
             'tgl_penerimaan' => $r->tgl,
             'uraian_bukti' => $r->uraian_bukti,
@@ -50,6 +72,7 @@ class BarangBuktiController extends Controller
             'penyerahan' => $r->penyerahan,
             'nm_penerima' => $r->nm_penerima,
             'catatan' => $r->catatan,
+            'foto' => $file->getClientOriginalName() ?? '',
             'admin' => auth()->user()->name
         ]);
         return redirect()->route('barang_bukti.index')->with('sukses', 'Berhasil ubah barang_bukti');

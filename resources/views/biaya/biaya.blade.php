@@ -28,6 +28,8 @@
                                 @foreach ($datas as $no => $d)
                                     <tr>
                                         <td>{{ $no + 1 }}</td>
+                                        <td><img class="img img-thumbnail" style="height: 150px; width: 150px"  src="{{ asset("upload/$d->foto") }}" alt=""></td>
+
                                         <td>{{ $d->no_perkara }}</td>
                                         <td>{{ $d->nm_perkara }}</td>
                                         <td>{{ tanggal($d->tgl_transaksi) }}</td>
@@ -68,6 +70,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            <div class="mb-2 col-lg-12">
+                                <div class="form-group">
+                                    <label for="">Pilih Berkas</label>
+                                    <input type="file" name="foto" class="form-control">
+                                </div>
+                            </div>
                             <div class="mb-2 col-lg-12">
                                 <div class="fomr-group">
                                     <label for="">Perkara</label>
@@ -118,7 +126,7 @@
         <div class="modal fade text-left" id="modal-edit{{$d->id_biaya}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                <form action="{{ route('biaya.update') }}" method="post">
+                <form action="{{ route('biaya.update') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -132,6 +140,15 @@
                         <div class="modal-body">
                             <input type="hidden" name="id"  value="{{ $d->id_biaya }}">
                             <div class="row">
+                                <div class="mb-2 col-lg-12">
+                                    <img class="img img-thumbnail" width="150" src="{{ asset("upload/$d->foto") }}" alt="">
+                                </div>
+                                <div class="mb-2 col-lg-12">
+                                    <div class="form-group">
+                                        <label for="">Pilih Berkas</label>
+                                        <input type="file" name="foto" class="form-control">
+                                    </div>
+                                </div>
                                 <div class="mb-2 col-lg-12">
                                     <div class="fomr-group">
                                         <label for="">Perkara</label>

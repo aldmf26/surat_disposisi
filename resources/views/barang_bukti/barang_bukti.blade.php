@@ -16,6 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Gambar</th>
                                     <th>No Perkara</th>
                                     <th>Uraian Bukti</th>
                                     <th>Tgl Penerimaan</th>
@@ -27,6 +28,7 @@
                                 @foreach ($datas as $no => $d)
                                     <tr>
                                         <td>{{ $no + 1 }}</td>
+                                        <td><img class="img img-thumbnail" width="150" src="{{ asset("upload/$d->foto") }}" alt=""></td>
                                         <td>{{ $d->no_perkara }}</td>
                                         <td>{{ $d->uraian_bukti }}</td>
                                         <td>{{ tanggal($d->tgl_penerimaan) }}</td>
@@ -76,6 +78,12 @@
                                                 {{ ucwords($p->nm_perkara) }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="mb-2 col-lg-12">
+                                <div class="form-group">
+                                    <label for="">Pilih Berkas</label>
+                                    <input type="file" name="foto" class="form-control">
                                 </div>
                             </div>
                             <div class="mb-2 col-lg-12">
@@ -136,7 +144,7 @@
         <div class="modal fade text-left" id="modal-edit{{$d->id_barang_bukti}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                <form action="{{ route('barang_bukti.update') }}" method="post">
+                <form action="{{ route('barang_bukti.update') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -150,6 +158,16 @@
                         <div class="modal-body">
                             <input type="hidden" name="id"  value="{{ $d->id_barang_bukti }}">
                             <div class="row">  
+                                
+                                <div class="mb-2 col-lg-12">
+                                    <img class="img img-thumbnail" width="150" src="{{ asset("upload/$d->foto") }}" alt="">
+                                </div>
+                                <div class="mb-2 col-lg-12">
+                                    <div class="form-group">
+                                        <label for="">Pilih Berkas</label>
+                                        <input type="file" name="foto" class="form-control">
+                                    </div>
+                                </div>
                                 <div class="mb-2 col-lg-12">
                                     <div class="form-group">
                                         <label for="">Uraian Bukti</label>

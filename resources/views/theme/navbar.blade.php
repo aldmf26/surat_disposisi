@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="{{ route('dashboard') }}"><img style="width: 100px; height: 100px;"
-                            src="https://pn-banjarmasin.go.id/images/Galeri/Logo/1_logo-bjm.png" alt="Logo"
+                            src="https://th.bing.com/th/id/OIP.UV9JSyZyhuo57yNIJMd6ZQHaJm?w=134&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Logo"
                             srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -124,7 +124,7 @@
             @endif
             {{-- end navbar pmpinan --}}
 
-            @if (auth()->user()->level != 'pimpinan')
+            @if (auth()->user()->level == 'admin')
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
 
@@ -261,6 +261,34 @@
                             <span>Data User</span>
                         </a>
                     </li>
+
+                </ul>
+            @endif
+
+            @if (auth()->user()->level == 'user')
+                <ul class="menu">
+                    <li class="sidebar-title">Menu</li>
+
+                    
+                    @php
+                        $reqPengadilan = ['perkara.index', 'biaya.index', 'perkara.detail', 'sidang.index', 'barang_bukti.index', 'hakim.index', 'pihak.index', 'putusan.index', 'jenis_perkara.index', 'jenis_pihak.index'];
+                        $routeName = Request::route()->getName();
+                    @endphp
+                    <li class="sidebar-item  has-sub {{ in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-pass"></i>
+                            <span>Data Pengadilan</span>
+                        </a>
+
+                        <ul class="submenu {{ in_array($routeName, $reqPengadilan) ? 'active' : '' }}">
+                            <li
+                                class="submenu-item {{ $routeName == 'perkara.index' || $routeName == 'perkara.detail' ? 'active' : '' }}">
+                                <a href="{{ route('perkara.index') }}">Perkara</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    
 
                 </ul>
             @endif

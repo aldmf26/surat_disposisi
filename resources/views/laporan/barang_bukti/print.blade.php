@@ -14,6 +14,7 @@
                 <tr>
                     <th>No</th>
                     <th>No Perkara</th>
+                    <th>Gambar</th>
                     <th>Nama Perkara</th>
                     <th>Uraian Bukti</th>
                     <th>Tgl Penerimaan</th>
@@ -25,6 +26,7 @@
                     <tr>
                         <td>{{ $no + 1 }}</td>
                         <td>{{ $d->no_perkara }}</td>
+                        <td><img class="img img-thumbnail" width="150" src="{{ asset("upload/$d->foto") }}" alt=""></td>
                         <td>{{ $d->nm_perkara }}</td>
                         <td>{{ $d->uraian_bukti }}</td>
                         <td>{{ tanggal($d->tgl_penerimaan) }}</td>

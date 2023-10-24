@@ -1,4 +1,7 @@
+
+
 @php
+
     function tgl_indo($tanggal)
     {
         $bulan = [
@@ -116,7 +119,7 @@
 <body>
     <div class="container">
         <p>
-            <img style="float: left; max-width: 100%;" src="https://pn-banjarmasin.go.id/images/Galeri/Logo/1_logo-bjm.png" alt=""
+            <img style="float: left; max-width: 100%;" src="https://th.bing.com/th/id/OIP.UV9JSyZyhuo57yNIJMd6ZQHaJm?w=134&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt=""
                 width="90" height="90">
         </p>
         <div id="title" style="font-size: 30px;">

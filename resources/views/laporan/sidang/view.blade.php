@@ -26,6 +26,17 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="form-group">
+                    <label for="">Hakim</label>
+                    <select name="id_hakim" class="form-control select2" id="">
+                        <option value="">- Pilih Hakim -</option>
+                        @foreach ($hakim as $d)
+                            <option value="{{ $d->id_hakim }}">{{ $d->nm_hakim }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
                         <label for="">Aksi</label><br>
                         <button class="btn btn-primary" type="submit">Cetak</button>
                     </div>

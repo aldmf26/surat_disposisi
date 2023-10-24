@@ -6,10 +6,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title" style="float: left">{{ $title }}</h3>
+                        @if (auth()->user()->level != 'user')
                         <button type="button" class="btn btn-primary" style="float: right" data-bs-toggle="modal"
                             data-bs-target="#modal-tambah">
                             <i class="bi bi-plus"></i> Tambah Data
                         </button>
+@endif
                     </div>
                     <div class="card-body">
                         <table class="table" id="table1">
@@ -54,11 +56,13 @@
                                         <td align="center">
                                             <a href="{{ route('perkara.detail', $d->id_perkara) }}"
                                                 class="btn icon btn-sm btn-primary"><i class="bi bi-detail"></i> Detail</a>
-                                                <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_perkara }}"
-                                                    class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
-                                                <a onclick="return confirm('Yakin dihapus ?')"
-                                                    href="{{ route('perkara.destroy', $d->id_perkara) }}"
-                                                    class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                            @if (auth()->user()->level != 'user')
+                                            <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_perkara }}"
+                                                class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                                            <a onclick="return confirm('Yakin dihapus ?')"
+                                                href="{{ route('perkara.destroy', $d->id_perkara) }}"
+                                                class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -115,7 +119,7 @@
                                     <input type="text" name="nm_perkara" class="form-control">
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -135,8 +139,8 @@
 
     {{-- modal edit --}}
     @foreach ($perkara as $d)
-        <div class="modal fade text-left" id="modal-edit{{$d->id_perkara}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-            aria-hidden="true">
+        <div class="modal fade text-left" id="modal-edit{{ $d->id_perkara }}" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <form action="{{ route('perkara.update') }}" method="post">
                     @csrf
@@ -145,17 +149,19 @@
                             <h5 class="modal-title" id="myModalLabel1">
                                 Edit {{ $title }}
                             </h5>
-                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id"  value="{{ $d->id_perkara }}">
+                            <input type="hidden" name="id" value="{{ $d->id_perkara }}">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">Tgl Daftar</label>
-                                        <input type="date" value="{{ $d->tgl }}" name="tgl" class="form-control">
+                                        <input type="date" value="{{ $d->tgl }}" name="tgl"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -163,23 +169,26 @@
                                     <select name="id_jenis_perkara" class="form-control select2" id="">
                                         <option value="">- Pilih Perkara -</option>
                                         @foreach ($jenis_perkara as $j)
-                                            <option {{$j->id_jenis_perkara == $d->id_jenis_perkara ? 'selected' : ''}} value="{{ $j->id_jenis_perkara }}">{{ $j->nm_jenis }}</option>
+                                            <option {{ $j->id_jenis_perkara == $d->id_jenis_perkara ? 'selected' : '' }}
+                                                value="{{ $j->id_jenis_perkara }}">{{ $j->nm_jenis }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">No Perkara</label>
-                                        <input type="text" value="{{ $d->no_perkara }}" name="no_perkara" class="form-control">
+                                        <input type="text" value="{{ $d->no_perkara }}" name="no_perkara"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">Nama Perkara</label>
-                                        <input type="text" value="{{ $d->nm_perkara }}" name="nm_perkara" class="form-control">
+                                        <input type="text" value="{{ $d->nm_perkara }}" name="nm_perkara"
+                                            class="form-control">
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="modal-footer">

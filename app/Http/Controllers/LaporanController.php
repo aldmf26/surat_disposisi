@@ -134,15 +134,17 @@ class LaporanController extends Controller
     {
         $data = [
             'title' => "Laporan Perkara",
-            'datas' => DB::table('tb_perkara')->get()
+            'datas' => DB::table('tb_perkara')->get(),
+            'jenis_perkara' => DB::table('tb_jenis_perkara')->get()
         ];
         return view('laporan.perkara.view',$data);
     }
     public function save_perkara(Request $r)
     {
+        $perkara = DB::table('tb_jenis_perkara')->where('id_jenis_perkara', $r->id_jenis_perkara)->first()->nm_jenis;
         $data = [
-            'perkara' => DB::table('tb_perkara')->whereBetween('tgl', [$r->tgl1, $r->tgl2])->get(),
-            'title' => "Laporan Perkara",
+            'perkara' => DB::table('tb_perkara')->where('id_jenis_perkara', $r->id_jenis_perkara)->whereBetween('tgl', [$r->tgl1, $r->tgl2])->get(),
+            'title' => "Laporan Perkara $perkara",
         ];
         return view('laporan.perkara.print',$data);
     }
@@ -196,19 +198,22 @@ class LaporanController extends Controller
         $data = [
             'title' => "Laporan Sidang",
             'datas' => DB::table('tb_sidang')->get(),
-            'perkara' => DB::table('tb_perkara')->get()
+            'perkara' => DB::table('tb_perkara')->get(),
+            'hakim' => DB::table('tb_hakim')->get()
         ];
         return view('laporan.sidang.view',$data);
     }
     public function save_sidang(Request $r)
     {
+        $hakim = DB::table('tb_hakim')->where('id_hakim', $r->id_hakim)->first()->nm_hakim;
         $data = [
             'datas' => DB::table('tb_sidang as a')
                 ->join('tb_perkara as b', 'a.id_perkara', 'b.id_perkara')
                 ->join('tb_hakim as c', 'a.id_hakim', 'c.id_hakim')
+                ->where('a.id_hakim', $r->id_hakim)
                 ->whereBetween('a.tgl_sidang', [$r->tgl1, $r->tgl2])
                 ->get(),
-            'title' => "Laporan Sidang",
+            'title' => "Laporan Sidang Hakim : $hakim",
         ];
         return view('laporan.sidang.print',$data);
     }

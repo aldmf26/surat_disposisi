@@ -16,6 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Gambar</th>
                                     <th>No Perkara</th>
                                     <th>Nama Perkara</th>
                                     <th>Tanggal Transaksi</th>

@@ -7,11 +7,11 @@
                     <div class="card-header">
                         <h3 class="card-title" style="float: left">{{ $title }}</h3>
                         @if (auth()->user()->level != 'user')
-                        <button type="button" class="btn btn-primary" style="float: right" data-bs-toggle="modal"
-                            data-bs-target="#modal-tambah">
-                            <i class="bi bi-plus"></i> Tambah Data
-                        </button>
-@endif
+                            <button type="button" class="btn btn-primary" style="float: right" data-bs-toggle="modal"
+                                data-bs-target="#modal-tambah">
+                                <i class="bi bi-plus"></i> Tambah Data
+                            </button>
+                        @endif
                     </div>
                     <div class="card-body">
                         <table class="table" id="table1">
@@ -57,11 +57,11 @@
                                             <a href="{{ route('perkara.detail', $d->id_perkara) }}"
                                                 class="btn icon btn-sm btn-primary"><i class="bi bi-detail"></i> Detail</a>
                                             @if (auth()->user()->level != 'user')
-                                            <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_perkara }}"
-                                                class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
-                                            <a onclick="return confirm('Yakin dihapus ?')"
-                                                href="{{ route('perkara.destroy', $d->id_perkara) }}"
-                                                class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                                <a data-bs-toggle="modal" data-bs-target="#modal-edit{{ $d->id_perkara }}"
+                                                    class="btn icon btn-sm btn-primary"><i class="bi bi-pencil"></i></a>
+                                                <a onclick="return confirm('Yakin dihapus ?')"
+                                                    href="{{ route('perkara.destroy', $d->id_perkara) }}"
+                                                    class="btn  icon btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                             @endif
                                         </td>
                                     </tr>
